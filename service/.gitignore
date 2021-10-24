@@ -1,0 +1,4 @@
+.env
+*.lock
+tmplog.txt
+*.session
