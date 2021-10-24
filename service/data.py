@@ -23,10 +23,6 @@ def find_all_params():
 
     return params
 
-# TODO = Vai ser PeerUser mesmo?
-
-from telethon.tl.types import PeerUser, PeerChat, PeerChannel
-
 def find_all_chats():
     cursor = cnx.cursor()
 
@@ -34,10 +30,12 @@ def find_all_chats():
 
     cursor.execute(query)
 
+    records = cursor.fetchall()
+
     chats = []
 
-    for (chat_id) in cursor:
-        chats.append(PeerChat(chat_id))
+    for row in records:
+        chats.append(row[2])
 
     cursor.close()
 

@@ -50,5 +50,5 @@ pipenv run python scripts/init_db.py
 Finally, to run the service:
 
 ```
-pipenv run python app.py
+pipenv run python app.py >> /dev/null
 ```
