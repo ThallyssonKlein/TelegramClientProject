@@ -16,7 +16,7 @@ def init_db():
 
     cursor.execute(query2)
 
-    query3 = ("CREATE TABLE IF NOT EXISTS tc_messages (id INT AUTO_INCREMENT PRIMARY KEY, chat_id INT, message_id INT, message_text VARCHAR(1000), datetime DATETIME, FOREIGN KEY (chat_id) REFERENCES tc_groups_channels(id)) ENGINE=InnoDB CHARSET=utf8")
+    query3 = ("CREATE TABLE IF NOT EXISTS tc_messages (id INT AUTO_INCREMENT PRIMARY KEY, chat_id INT, message_id INT, message_text VARCHAR(1000), datetime DATETIME, is_media BOOLEAN,FOREIGN KEY (chat_id) REFERENCES tc_groups_channels(id)) ENGINE=InnoDB CHARSET=utf8")
 
     cursor.execute(query3)
 
