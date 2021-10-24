@@ -1,6 +1,9 @@
 import data
 
 params = data.find_all_params()
+print(params)
+content_filter_v = params.get('CONTENT_FILTER')
+print(content_filter_v)
 
 from telethon import TelegramClient, events
 
@@ -8,11 +11,15 @@ client = TelegramClient('default_session', params['API_ID'], params['API_HASH'])
 client.start()
 
 async def content_filter(event):
-    if params.get('CONTENT_FILTER'):
-        if event.message.message == params['CONTENT_FILTER']:
-            return True
-        else:
-            return False
+    global content_filter_v
+    print(content_filter_v)
+    if content_filter_v:
+        separated_content_filter = content_filter_v.split(',')
+        for term in separated_content_filter:
+            if term in event.message.message:
+                return True
+        
+        return False
     else:
         return True
 

@@ -52,3 +52,7 @@ Finally, to run the service:
 ```
 pipenv run python app.py >> /dev/null
 ```
+
+## Filtering messages by content too
+
+Just add a param called CONTENT_FILTER and as its value add the terms you want to filter by separated by comma ex: "haha,kkk"
