@@ -16,29 +16,23 @@ async def content_filter(event):
     else:
         return True
 
-chats = data.find_all_chats()
-print(chats)
+chats, chat_ids = data.find_all_chats()
 
 @client.on(events.NewMessage(chats=chats, incoming=True, func=content_filter))
-async def event_handler(event):   
-    # data.save_one_message() # TODO - Ultima coisa
-    print(str(event.message.message))
-    print(str(event.message.peer_id.channel_id))
+async def event_handler(event):
+    channel_id = event.message.peer_id.channel_id
+    channel_id_on_database = chat_ids[chats.index(channel_id)]   
+    data.save_one_message(channel_id_on_database, event.message.id, event.message.message, event.message.date)
+    print(str(event.message.date))
     f = open("tmplog.txt", "a")
     f.write(str(event))
     f.close()
 
 import asyncio
 
-counter = 0
 async def infinity_loop():
     while True:
         print("Running")
         await asyncio.sleep(1)
-        counter += 1
-        if counter == 60:
-            chats = data.find_all_chats()
-            params = data.find_all_params()
-            counter = 0
 
 client.loop.run_until_complete(infinity_loop())

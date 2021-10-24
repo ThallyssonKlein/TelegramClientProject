@@ -33,13 +33,15 @@ def find_all_chats():
     records = cursor.fetchall()
 
     chats = []
+    chat_ids = []
 
     for row in records:
         chats.append(row[2])
+        chat_ids.append(row[0])
 
     cursor.close()
 
-    return chats
+    return chats, chat_ids
 
 def save_one_message(chat_id, message_id, message_text, datetime):
     cursor = cnx.cursor()
