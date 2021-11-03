@@ -1,6 +1,7 @@
 import data
 
 params = data.find_all_params()
+print(params)
 content_filter_v = params.get('CONTENT_FILTER')
 
 from telethon import TelegramClient, events
@@ -24,6 +25,17 @@ chats, chat_ids = data.find_all_chats()
 
 from os.path import basename
 
+import pytz
+
+def format_date(date):
+	old_timezone = pytz.timezone()
+	new_timezone = pytz.timezone("America/Araguaiana")
+	
+	localized_timestamp = old_timezone.localize(date)
+	new_localized_timestamp = localized_timestamp.astimezone(new_timezone)
+	
+	return new_localized_timestamp
+
 @client.on(events.NewMessage(chats=chats, incoming=True, func=content_filter))
 async def event_handler(event):
     global params
@@ -37,8 +49,8 @@ async def event_handler(event):
         filename = basename(path)
         print('File name: {}'.format(filename))
         data.save_one_message(channel_id_on_database, event.message.id, filename, event.message.date, True)
-    else:  
-        data.save_one_message(channel_id_on_database, event.message.id, event.message.message, event.message.date, False)
+    else:
+        data.save_one_message(channel_id_on_database, event.message.id, str(event.message.message), event.message.date, False)
     print(str(event.message.date))
     
     params = data.find_all_params()

@@ -2,3 +2,4 @@
 *.lock
 tmplog.txt
 *.session
+log.txt

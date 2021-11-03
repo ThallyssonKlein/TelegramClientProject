@@ -43,6 +43,9 @@ def find_all_chats():
 
     return chats, chat_ids
 
+def remove_emoji(string):
+    return string.replace('🟢', '').replace('🟠', '')
+
 def save_one_message(chat_id, message_id, message_text, datetime, isMedia):
     cursor = cnx.cursor()
 
@@ -50,8 +53,9 @@ def save_one_message(chat_id, message_id, message_text, datetime, isMedia):
         query = ("INSERT INTO tc_messages (chat_id, message_id, message_text, datetime, is_media) VALUES (%s, %s, %s, %s, 1)")
         cursor.execute(query, (chat_id, message_id, message_text, datetime))
     else:
+        print(remove_emoji(message_text))
         query = ("INSERT INTO tc_messages (chat_id, message_id, message_text, datetime, is_media) VALUES (%s, %s, %s, %s, 2)")
-        cursor.execute(query, (chat_id, message_id, message_text, datetime))
+        cursor.execute(query, (chat_id, message_id, remove_emoji(message_text), datetime))
 
     cnx.commit()
 
