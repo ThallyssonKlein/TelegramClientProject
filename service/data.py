@@ -44,7 +44,7 @@ def find_all_chats():
     return chats, chat_ids
 
 def remove_emoji(string):
-    return string.replace('🟢', '').replace('🟠', '')
+    return string.replace('🟢', '').replace('🟠', '').replace('🔵', '')
 
 def save_one_message(chat_id, message_id, message_text, datetime, isMedia):
     cursor = cnx.cursor()
