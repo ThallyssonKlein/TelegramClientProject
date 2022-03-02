@@ -51,7 +51,6 @@ async def event_handler(event):
         data.save_one_message(channel_id_on_database, event.message.id, filename, event.message.date, True)
     else:
         data.save_one_message(channel_id_on_database, event.message.id, str(event.message.message), event.message.date, False)
-    print(str(event.message.date))
     
     params = data.find_all_params()
     chats, chat_ids = data.find_all_chats()
@@ -60,7 +59,7 @@ import asyncio
 
 async def infinity_loop():
     while True:
-        print("Running")
+        print('.', end='', flush=True)
         await asyncio.sleep(1)
 
 client.loop.run_until_complete(infinity_loop())
