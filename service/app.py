@@ -6,9 +6,6 @@ content_filter_v = params.get('CONTENT_FILTER')
 
 from telethon import TelegramClient, events
 
-client = TelegramClient('default_session', params['API_ID'], params['API_HASH'])
-client.start()
-
 async def content_filter(event):
     global content_filter_v
     if content_filter_v:
@@ -57,9 +54,8 @@ async def event_handler(event):
 
 import asyncio
 
-async def infinity_loop():
-    while True:
-        print('.', end='', flush=True)
-        await asyncio.sleep(1)
+async def main():
+    client = TelegramClient('default_session', params['API_ID'], params['API_HASH'])
+    await client.start()
 
-client.loop.run_until_complete(infinity_loop())
+asyncio.run(main())
