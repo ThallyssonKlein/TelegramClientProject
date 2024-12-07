@@ -1,6 +1,10 @@
 import mysql.connector
 from env import env
 
+print(env['DATABASE_USERNAME'])
+print(env['DATABASE_PASSWORD'])
+print(env['DATABASE_HOST'])
+print(env['DATABASE_NAME'])
 cnx = mysql.connector.connect(user=env['DATABASE_USERNAME'], password=env['DATABASE_PASSWORD'],
                               host=env['DATABASE_HOST'],
                               database=env['DATABASE_NAME'])
@@ -8,7 +12,7 @@ cnx = mysql.connector.connect(user=env['DATABASE_USERNAME'], password=env['DATAB
 def init_db():
     cursor = cnx.cursor()
 
-    query1 = ("CREATE TABLE IF NOT EXISTS tc_groups_channels (id INT AUTO_INCREMENT PRIMARY KEY, chat_name VARCHAR(20), chat_id INT) ENGINE=InnoDB CHARSET=utf8")
+    query1 = ("CREATE TABLE IF NOT EXISTS tc_groups_channels (id INT AUTO_INCREMENT PRIMARY KEY, chat_name VARCHAR(20), chat_id BIGINT) ENGINE=InnoDB CHARSET=utf8")
 
     cursor.execute(query1)
 

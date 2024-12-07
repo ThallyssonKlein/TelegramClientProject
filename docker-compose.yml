@@ -1,6 +1,7 @@
 services:
-  mysql:
-    image: mysql:5.7
+  mysql_telegram_client:
+    container_name: mysql_telegram_client
+    image: mysql:9.1.0
     ports:
       - "3306:3306"
     environment:
