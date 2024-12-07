@@ -3,3 +3,5 @@
 tmplog.txt
 *.session
 log.txt
+venv/
+__pycache__/
