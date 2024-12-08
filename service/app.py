@@ -7,6 +7,7 @@ content_filter_v = params.get('CONTENT_FILTER')
 from telethon import TelegramClient, events
 
 async def content_filter(event):
+    print('content_filter')
     global content_filter_v
     if content_filter_v:
         separated_content_filter = content_filter_v.split(',')
@@ -19,6 +20,8 @@ async def content_filter(event):
         return True
 
 chats, chat_ids = data.find_all_chats()
+print(chats)
+client = TelegramClient('default_session', params['API_ID'], params['API_HASH'])
 
 from os.path import basename
 
@@ -35,6 +38,7 @@ def format_date(date):
 
 @client.on(events.NewMessage(chats=chats, incoming=True, func=content_filter))
 async def event_handler(event):
+    print('message received')
     global params
     global chats
     global chat_ids
@@ -55,7 +59,9 @@ async def event_handler(event):
 import asyncio
 
 async def main():
-    client = TelegramClient('default_session', params['API_ID'], params['API_HASH'])
     await client.start()
+    print("Client started")
+    await client.run_until_disconnected()
+
 
 asyncio.run(main())
